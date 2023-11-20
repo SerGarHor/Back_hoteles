@@ -3,6 +3,7 @@ using back_hoteles.Models;
 using back_hoteles.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 
 namespace back_hoteles.Controllers
 {
@@ -58,15 +59,15 @@ namespace back_hoteles.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _hotelRepository.UpdateHotel(hotel);
-            return NoContent();
+           var update =  await _hotelRepository.UpdateHotel(hotel);
+            return Created("Actualizado", update);
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteHotel(int id)
         {
-            await _hotelRepository.DeleteHotel(new Hotels { id = id });
-            return NoContent();
+            var delete = await _hotelRepository.DeleteHotel(new Hotels { id = id });
+            return Created("Eliminado", delete);
         }
     }
 }
